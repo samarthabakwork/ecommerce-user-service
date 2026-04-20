@@ -26,12 +26,6 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponseDTO> handleGeneric(Exception ex){
-        ErrorResponseDTO error=new ErrorResponseDTO("InternalServerError",ex.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR.value());
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
-    }
-
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponseDTO> handleValidation(MethodArgumentNotValidException ex){
         String message = ex.getBindingResult().getFieldErrors()
@@ -40,6 +34,12 @@ public class GlobalExceptionHandler {
                 .collect(Collectors.joining(", "));
         ErrorResponseDTO error=new ErrorResponseDTO("MethodArgumentNotValidException",message,HttpStatus.BAD_REQUEST.value());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponseDTO> handleGeneric(Exception ex){
+        ErrorResponseDTO error=new ErrorResponseDTO("InternalServerError",ex.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR.value());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
     }
 
 }
