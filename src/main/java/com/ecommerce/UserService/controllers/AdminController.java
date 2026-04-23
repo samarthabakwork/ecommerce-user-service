@@ -1,15 +1,47 @@
 package com.ecommerce.UserService.controllers;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.ecommerce.UserService.dto.response.UserResponseDTO;
+import com.ecommerce.UserService.services.admin.AdminService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/admin")
+@RequiredArgsConstructor
 public class AdminController {
 
-    @GetMapping("/greet")
-    public String greet(){
-        return "Hello Admin";
+    private final AdminService adminService;
+
+    @PatchMapping("/{id}/activateuser")
+    public ResponseEntity<UserResponseDTO> activateUser(@PathVariable Long id){
+        return ResponseEntity.ok(adminService.activateUser(id));
     }
+
+    @PatchMapping("/{id}/deactivateuser")
+    public ResponseEntity<UserResponseDTO> deactivateUser(@PathVariable Long id){
+        return ResponseEntity.ok(adminService.deactivateUser(id));
+    }
+
+    @GetMapping("/getallusers")
+    public ResponseEntity<List<UserResponseDTO>> getAllUsers() {
+        return ResponseEntity.ok(adminService.getAllUsers());
+    }
+
+    @GetMapping("/{id}/getuser")
+    public ResponseEntity<UserResponseDTO> getUser(@PathVariable Long id) {
+        return ResponseEntity.ok(adminService.getUserById(id));
+    }
+
+
+    @DeleteMapping("/{id}/deleteuser")
+    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
+        adminService.deleteUser(id);
+        return ResponseEntity.ok("User deleted successfully");
+    }
+
+
+
 }

@@ -1,14 +1,32 @@
 package com.ecommerce.UserService.controllers;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.ecommerce.UserService.dto.request.UpdateRequestDTO;
+import com.ecommerce.UserService.dto.response.UserResponseDTO;
+import com.ecommerce.UserService.services.user.UserService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
+@RequiredArgsConstructor
 public class UserController {
-    @GetMapping("/greet")
-    public String greet(){
-        return "Hello User";
+    private final UserService userService;
+
+    @GetMapping("/viewprofile")
+    public UserResponseDTO viewProfile(){
+        return userService.viewProfile();
+    }
+
+    @PatchMapping("/updateprofile")
+    public UserResponseDTO updateProfile(@Valid @RequestBody UpdateRequestDTO dto){
+        return userService.updateProfile(dto);
+    }
+
+    @DeleteMapping("/deleteaccount")
+    public ResponseEntity<String> deleteAccount(){
+        userService.deleteAccount();
+        return ResponseEntity.ok().body("User deleted Successfully");
     }
 }
