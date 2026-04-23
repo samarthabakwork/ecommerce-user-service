@@ -15,12 +15,12 @@ public class AdminController {
 
     private final AdminService adminService;
 
-    @PatchMapping("/{id}/activateuser")
+    @PatchMapping("/activateuser/{id}")
     public ResponseEntity<UserResponseDTO> activateUser(@PathVariable Long id){
         return ResponseEntity.ok(adminService.activateUser(id));
     }
 
-    @PatchMapping("/{id}/deactivateuser")
+    @PatchMapping("/deactivateuser/{id}")
     public ResponseEntity<UserResponseDTO> deactivateUser(@PathVariable Long id){
         return ResponseEntity.ok(adminService.deactivateUser(id));
     }
@@ -30,13 +30,13 @@ public class AdminController {
         return ResponseEntity.ok(adminService.getAllUsers());
     }
 
-    @GetMapping("/{id}/getuser")
+    @GetMapping("/getuser/{id}")
     public ResponseEntity<UserResponseDTO> getUser(@PathVariable Long id) {
         return ResponseEntity.ok(adminService.getUserById(id));
     }
 
 
-    @DeleteMapping("/{id}/deleteuser")
+    @DeleteMapping("/deleteuser/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable Long id) {
         adminService.deleteUser(id);
         return ResponseEntity.ok("User deleted successfully");

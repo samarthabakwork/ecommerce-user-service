@@ -2,6 +2,7 @@ package com.ecommerce.UserService.services.admin;
 
 import com.ecommerce.UserService.dto.response.UserResponseDTO;
 import com.ecommerce.UserService.entities.User;
+import com.ecommerce.UserService.exception.UserNotFoundException;
 import com.ecommerce.UserService.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -16,7 +17,7 @@ public class AdminServiceImpl implements AdminService{
     private final ModelMapper modelMapper;
 
     private User getUser(Long id){
-        return userRepo.findById(id).orElseThrow(()->new RuntimeException("User not found"));
+        return userRepo.findById(id).orElseThrow(()->new UserNotFoundException("User not found"));
     }
 
     @Override
@@ -51,7 +52,6 @@ public class AdminServiceImpl implements AdminService{
 
     @Override
     public void deleteUser(Long id) {
-    User user=getUser(id);
-    userRepo.delete(user);
+    userRepo.deleteById(id);
     }
 }

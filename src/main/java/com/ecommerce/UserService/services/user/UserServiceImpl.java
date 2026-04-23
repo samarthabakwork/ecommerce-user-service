@@ -3,6 +3,7 @@ package com.ecommerce.UserService.services.user;
 import com.ecommerce.UserService.dto.request.UpdateRequestDTO;
 import com.ecommerce.UserService.dto.response.UserResponseDTO;
 import com.ecommerce.UserService.entities.User;
+import com.ecommerce.UserService.exception.UserNotFoundException;
 import com.ecommerce.UserService.repositories.UserRepository;
 import com.ecommerce.UserService.security.UserPrincipal;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,7 @@ public class UserServiceImpl implements UserService{
     private User getCurrentUser(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserPrincipal userPrincipal=(UserPrincipal) authentication.getPrincipal();
-        return userRepo.findById(userPrincipal.getUser().getId()).orElseThrow(()->new RuntimeException("User not found"));
+        return userRepo.findById(userPrincipal.getUser().getId()).orElseThrow(()->new UserNotFoundException("User not found"));
     }
 
     @Override
