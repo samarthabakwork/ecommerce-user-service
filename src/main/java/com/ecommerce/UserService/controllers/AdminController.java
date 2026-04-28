@@ -1,5 +1,6 @@
 package com.ecommerce.UserService.controllers;
 
+import com.ecommerce.UserService.dto.response.MessageResponseDTO;
 import com.ecommerce.UserService.dto.response.UserResponseDTO;
 import com.ecommerce.UserService.services.admin.AdminService;
 import lombok.RequiredArgsConstructor;
@@ -37,9 +38,9 @@ public class AdminController {
 
 
     @DeleteMapping("/deleteuser/{id}")
-    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<MessageResponseDTO> deleteUser(@PathVariable Long id) {
         adminService.deleteUser(id);
-        return ResponseEntity.ok("User deleted successfully");
+        return ResponseEntity.ok(new MessageResponseDTO("User deleted successfully with id "+id,true));
     }
 
 

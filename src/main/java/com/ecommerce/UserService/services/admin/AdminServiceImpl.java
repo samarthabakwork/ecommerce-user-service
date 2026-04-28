@@ -52,6 +52,7 @@ public class AdminServiceImpl implements AdminService{
 
     @Override
     public void deleteUser(Long id) {
-    userRepo.deleteById(id);
+
+        userRepo.deleteById(id);
     }
 }

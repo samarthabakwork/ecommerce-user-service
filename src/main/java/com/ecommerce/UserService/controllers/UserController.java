@@ -1,6 +1,7 @@
 package com.ecommerce.UserService.controllers;
 
 import com.ecommerce.UserService.dto.request.UpdateRequestDTO;
+import com.ecommerce.UserService.dto.response.MessageResponseDTO;
 import com.ecommerce.UserService.dto.response.UserResponseDTO;
 import com.ecommerce.UserService.services.user.UserService;
 import jakarta.validation.Valid;
@@ -25,8 +26,8 @@ public class UserController {
     }
 
     @DeleteMapping("/deleteaccount")
-    public ResponseEntity<String> deleteAccount(){
+    public ResponseEntity<MessageResponseDTO> deleteAccount(){
         userService.deleteAccount();
-        return ResponseEntity.ok().body("User deleted Successfully");
+        return ResponseEntity.ok(new MessageResponseDTO("Account deleted Successfully",true));
     }
 }
