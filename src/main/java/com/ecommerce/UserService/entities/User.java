@@ -12,7 +12,7 @@ import java.util.Enumeration;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(nullable = false,length = 20)
     private String name;
@@ -27,5 +27,7 @@ public class User {
     @Column(nullable = false)
     private Role role;
 
+    @Column(nullable = false)
+    private boolean active = true;
 }
 
